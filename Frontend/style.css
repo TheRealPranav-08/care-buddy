@@ -1,13 +1,8 @@
 :root {
-    --primary-color: #2196f3;
-    --secondary-color: #64b5f6;
-    --text-color: #333;
-    --background-color: #f5f5f5;
-    --white: #ffffff;
-    --error-color: #f44336;
-    --success-color: #4caf50;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --light-color: #f3f4f6;
+    --dark-color: #1f2937;
 }
 
 * {
@@ -17,10 +12,11 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    padding-top: 76px;
 }
 
 /* Header Styles */
@@ -44,6 +40,21 @@ nav {
     margin-left: 2rem;
 }
 
+/* Navbar Styles */
+.navbar {
+    transition: all 0.3s ease;
+}
+
+.navbar-brand img {
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #f6f7ff 0%, #e8eeff 100%);
+    padding: 100px 0;
+}
+
 /* Button Styles */
 .btn-primary {
     background-color: var(--primary-color);
@@ -55,6 +66,18 @@ nav {
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -111,4 +134,47 @@ footer {
     padding: 2rem;
     background-color: var(--white);
     margin-top: auto;
+}
+
+/* Hover Effects */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-wrapper {
+    background: var(--light-color);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover .icon-wrapper {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Animations */
+.animate__animated {
+    animation-duration: 1s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
 }
