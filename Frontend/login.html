@@ -20,6 +20,269 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <!-- Add Anime.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        :root {
+            --primary: #4C9AFF;
+            --primary-dark: #2684FF;
+            --secondary: #7C5CFF;
+            --success: #36B37E;
+            --danger: #FF5630;
+            --warning: #FFAB00;
+            --dark: #172B4D;
+            --light: #F4F5F7;
+            --white: #FFFFFF;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --shadow-sm: 0 2px 4px rgba(9, 30, 66, 0.08);
+            --shadow-md: 0 4px 8px rgba(9, 30, 66, 0.12);
+            --shadow-lg: 0 8px 16px rgba(9, 30, 66, 0.16);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Base Styles */
+        body.login-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFF 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Auth Container */
+        .auth-container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        /* Form Styles */
+        .auth-form {
+            padding: 3rem;
+            background: var(--white);
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .auth-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: pulse-animation 2s infinite;
+        }
+
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Input Fields */
+        .floating-input {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .floating-input input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .floating-input label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .floating-input input:focus ~ label,
+        .floating-input input:not(:placeholder-shown) ~ label {
+            top: 0;
+            transform: translateY(-50%) scale(0.85);
+            background: var(--white);
+            padding: 0 0.5rem;
+        }
+
+        /* Gender Selector */
+        .gender-selector {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gender-option {
+            flex: 1;
+        }
+
+        .gender-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid var(--light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gender-option input[type="radio"] {
+            display: none;
+        }
+
+        .gender-option input[type="radio"]:checked + .gender-label {
+            border-color: var(--primary);
+            background: rgba(76, 154, 255, 0.1);
+        }
+
+        /* Button Styles */
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--white);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-top: 2rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--light);
+            background: var(--white);
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .success-message {
+            text-align: center;
+            color: var(--success);
+            transform: scale(0);
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-decoration {
+                display: none;
+            }
+
+            .auth-form {
+                padding: 2rem;
+            }
+
+            .gender-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body class="login-page">
     <!-- Interactive Background -->
