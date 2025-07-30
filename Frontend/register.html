@@ -26,7 +26,7 @@
             <!-- Left side - Register Form -->
             <form id="registerForm" class="auth-form animate__animated animate__slideInLeft">
                 <div class="form-header">
-                    <img src="assets/images/logo.png" alt="Logo" class="auth-logo">
+                    <img src="hospital logo.webp" alt="Logo" class="auth-logo">
                     <h1>Create Your Account</h1>
                     <p class="text-muted">Join our healthcare community today</p>
                 </div>
@@ -229,16 +229,175 @@
             }
         }
 
-        // Form submission
+        // Validation functions
+        const validations = {
+            fullName: {
+                regex: /^[a-zA-Z\s]{2,50}$/,
+                message: 'Please enter a valid name (2-50 characters, letters only)'
+            },
+            email: {
+                regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'Please enter a valid email address'
+            },
+            phone: {
+                regex: /^\+?[\d\s-]{10,}$/,
+                message: 'Please enter a valid phone number (min 10 digits)'
+            },
+            password: {
+                regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message: 'Password must contain at least 8 characters, including uppercase, lowercase, number and special character'
+            }
+        };
+
+        const showError = (input, message) => {
+            const formGroup = input.closest('.form-group');
+            formGroup.classList.add('error');
+            const error = document.createElement('div');
+            error.className = 'error-message animate__animated animate__fadeIn';
+            error.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            formGroup.appendChild(error);
+        };
+
+        const removeError = (input) => {
+            const formGroup = input.closest('.form-group');
+            formGroup.classList.remove('error');
+            const error = formGroup.querySelector('.error-message');
+            if (error) error.remove();
+        };
+
+        const validateStep = (stepNumber) => {
+            let isValid = true;
+            const step = document.getElementById(`step${stepNumber}`);
+            const inputs = step.querySelectorAll('input:not([type="radio"])');
+
+            inputs.forEach(input => {
+                removeError(input);
+
+                if (input.required && !input.value.trim()) {
+                    showError(input, `${input.labels[0].textContent.trim()} is required`);
+                    isValid = false;
+                    return;
+                }
+
+                if (validations[input.id] && input.value.trim()) {
+                    if (!validations[input.id].regex.test(input.value.trim())) {
+                        showError(input, validations[input.id].message);
+                        isValid = false;
+                    }
+                }
+            });
+
+            // Special validation for gender selection
+            if (stepNumber === 1) {
+                const genderSelected = document.querySelector('.gender-btn.active');
+                if (!genderSelected) {
+                    const genderGroup = document.querySelector('.gender-select');
+                    showError(genderGroup, 'Please select your gender');
+                    isValid = false;
+                }
+            }
+
+            // Password confirmation validation
+            if (stepNumber === 3) {
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirmPassword');
+                if (password.value !== confirmPassword.value) {
+                    showError(confirmPassword, 'Passwords do not match');
+                    isValid = false;
+                }
+
+                const terms = document.getElementById('terms');
+                if (!terms.checked) {
+                    showError(terms, 'You must accept the Terms & Conditions');
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        };
+
+        // Update navigation handlers with validation
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (validateStep(currentStep) && currentStep < totalSteps) {
+                animateStepTransition('next');
+                currentStep++;
+                updateFormSteps();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateFormSteps();
+            }
+        });
+
+        // Add step transition animation
+        function animateStepTransition(direction) {
+            const currentStepEl = document.getElementById(`step${currentStep}`);
+            const nextStep = direction === 'next' ? currentStep + 1 : currentStep - 1;
+            const nextStepEl = document.getElementById(`step${nextStep}`);
+
+            gsap.to(currentStepEl, {
+                opacity: 0,
+                x: direction === 'next' ? -50 : 50,
+                duration: 0.3,
+                onComplete: () => {
+                    currentStepEl.classList.add('hidden');
+                    nextStepEl.classList.remove('hidden');
+                    gsap.fromTo(nextStepEl,
+                        { opacity: 0, x: direction === 'next' ? 50 : -50 },
+                        { opacity: 1, x: 0, duration: 0.3 }
+                    );
+                }
+            });
+        }
+
+        // Real-time validation
+        document.querySelectorAll('.form-group input').forEach(input => {
+            input.addEventListener('input', () => {
+                removeError(input);
+                if (validations[input.id] && input.value.trim()) {
+                    if (!validations[input.id].regex.test(input.value.trim())) {
+                        showError(input, validations[input.id].message);
+                    }
+                }
+            });
+        });
+
+        // Enhanced form submission
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            document.querySelector('.loading-overlay').style.display = 'flex';
             
-            // Simulate API call
-            setTimeout(() => {
-                document.querySelector('.loading-overlay').style.display = 'none';
-                // Add your registration logic here
-            }, 1500);
+            if (validateStep(currentStep)) {
+                const loadingOverlay = document.querySelector('.loading-overlay');
+                loadingOverlay.style.display = 'flex';
+                
+                // Collect form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    gender: document.querySelector('.gender-btn.active').textContent.trim(),
+                    dob: document.getElementById('dob').value,
+                    address: document.getElementById('address').value
+                };
+
+                // Simulate API call
+                setTimeout(() => {
+                    loadingOverlay.innerHTML = `
+                        <div class="success-message animate__animated animate__fadeInUp">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Registration Successful!</h3>
+                            <p>Redirecting to login...</p>
+                        </div>
+                    `;
+
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                }, 1500);
+            }
         });
 
         // Initialize animations

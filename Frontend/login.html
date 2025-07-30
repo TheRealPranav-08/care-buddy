@@ -63,6 +63,34 @@
                     <div class="input-underline"></div>
                 </div>
 
+                <!-- Add after email input field -->
+                <div class="form-group">
+                    <label class="input-label">Gender</label>
+                    <div class="gender-selector">
+                        <div class="gender-option">
+                            <input type="radio" id="male" name="gender" value="male" required>
+                            <label for="male" class="gender-label">
+                                <i class="fas fa-mars"></i>
+                                <span>Male</span>
+                            </label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female" class="gender-label">
+                                <i class="fas fa-venus"></i>
+                                <span>Female</span>
+                            </label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other" class="gender-label">
+                                <i class="fas fa-transgender"></i>
+                                <span>Other</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group floating-input">
                     <input type="password" id="password" name="password" required placeholder=" ">
                     <label for="password">
@@ -150,34 +178,144 @@
             }
         }
 
-        // Form submission animation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Form validation and submission
+        const form = document.getElementById('loginForm');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        let genderError = null;
+
+        // Validation functions
+        const showError = (input, message) => {
+            const formGroup = input.parentElement;
+            formGroup.classList.remove('success');
+            formGroup.classList.add('error');
+            const error = formGroup.querySelector('.error-message') || document.createElement('div');
+            error.className = 'error-message';
+            error.innerHTML = `<i class="fas fa-exclamation-circle"></i>${message}`;
+            if (!formGroup.querySelector('.error-message')) {
+                formGroup.appendChild(error);
+            }
+        };
+
+        const showSuccess = (input) => {
+            const formGroup = input.parentElement;
+            formGroup.classList.remove('error');
+            formGroup.classList.add('success');
+            const error = formGroup.querySelector('.error-message');
+            if (error) {
+                error.remove();
+            }
+        };
+
+        const clearGenderError = () => {
+            if (genderError) {
+                genderError.remove();
+                genderError = null;
+            }
+        };
+
+        // Real-time validation
+        email.addEventListener('input', () => {
+            if (!email.value.trim()) {
+                showError(email, 'Email is required');
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+            } else {
+                showSuccess(email);
+            }
+        });
+
+        password.addEventListener('input', () => {
+            if (!password.value.trim()) {
+                showError(password, 'Password is required');
+            } else if (!isValidPassword(password.value)) {
+                showError(password, 'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character');
+            } else {
+                showSuccess(password);
+            }
+        });
+
+        // Gender selection validation
+        document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.addEventListener('change', clearGenderError);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            document.querySelector('.loading-overlay').style.display = 'flex';
-            
-            // Simulate API call
-            setTimeout(() => {
-                document.querySelector('.loading-overlay').style.display = 'none';
-                // Add your login logic here
-            }, 1500);
-        });
+            let isValid = true;
 
-        // Initialize animations
-        gsap.from(".auth-logo", {
-            duration: 1,
-            y: -50,
-            opacity: 0,
-            delay: 0.2,
-            ease: "power3.out"
-        });
+            // Clear previous errors
+            clearGenderError();
 
-        gsap.from(".form-group", {
-            duration: 0.8,
-            y: 20,
-            opacity: 0,
-            stagger: 0.2,
-            delay: 0.5,
-            ease: "power3.out"
+            // Validate email
+            if (!email.value.trim()) {
+                showError(email, 'Email is required');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                showSuccess(email);
+            }
+
+            // Validate password
+            if (!password.value.trim()) {
+                showError(password, 'Password is required');
+                isValid = false;
+            } else if (!isValidPassword(password.value)) {
+                showError(password, 'Invalid password format');
+                isValid = false;
+            } else {
+                showSuccess(password);
+            }
+
+            // Validate gender selection
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                const genderGroup = document.querySelector('.gender-selector').parentElement;
+                genderError = document.createElement('div');
+                genderError.className = 'error-message';
+                genderError.innerHTML = '<i class="fas fa-exclamation-circle"></i>Please select your gender';
+                genderGroup.appendChild(genderError);
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.querySelector('.loading-overlay').style.display = 'flex';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    const loginSuccess = true;
+                    
+                    if (loginSuccess) {
+                        // Show success animation and redirect
+                        const overlay = document.querySelector('.loading-overlay');
+                        overlay.innerHTML = `
+                            <div class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Login Successful!</p>
+                            </div>
+                        `;
+                        
+                        gsap.to('.success-message', {
+                            scale: 1,
+                            duration: 0.5,
+                            ease: "elastic.out(1, 0.5)",
+                            onComplete: () => {
+                                // Store user data in localStorage
+                                localStorage.setItem('userEmail', email.value);
+                                localStorage.setItem('userGender', gender.value);
+                                // Redirect to chat interface
+                                window.location.href = 'chat.html';
+                            }
+                        });
+                    } else {
+                        document.querySelector('.loading-overlay').style.display = 'none';
+                        showError(email, 'Invalid credentials');
+                    }
+                }, 1500);
+            }
         });
     </script>
 </body>
