@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "backend",
+			"path": "."
+		},
+		{
+			"name": "Care-Buddy",
+			"path": "../Care-Buddy"
+		}
+	],
+	"settings": {}
+}
