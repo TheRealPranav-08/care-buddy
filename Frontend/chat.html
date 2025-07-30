@@ -51,7 +51,7 @@
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;  /* Reduced from 1.5rem for tighter button spacing */
         }
 
         .new-chat-btn {
@@ -70,6 +70,16 @@
 
         .new-chat-btn:hover {
             background: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .symptom-checker-btn {
+            background: var(--secondary);
+        }
+
+        .symptom-checker-btn:hover {
+            background: var(--secondary);
+            opacity: 0.9;
             transform: translateY(-1px);
         }
 
@@ -246,6 +256,10 @@
             <button class="new-chat-btn">
                 <i class="fas fa-plus"></i>
                 New Chat
+            </button>
+            <button class="new-chat-btn symptom-checker-btn" onclick="window.location.href='symptom-checker.html'">
+                <i class="fas fa-stethoscope"></i>
+                Symptom Checker
             </button>
             <div class="chat-list">
                 <!-- Chat items will be populated here -->
