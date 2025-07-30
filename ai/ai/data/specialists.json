@@ -1,0 +1,22 @@
+[
+    {
+        "id": "general_practitioner",
+        "name": "General Practitioner",
+        "description": "A medical doctor who treats acute and chronic illnesses."
+    },
+    {
+        "id": "infectious_disease",
+        "name": "Infectious Disease Specialist",
+        "description": "Specializes in diagnosing and treating infectious diseases."
+    },
+    {
+        "id": "neurologist",
+        "name": "Neurologist",
+        "description": "Specializes in treating nervous system disorders."
+    },
+    {
+        "id": "allergist",
+        "name": "Allergist",
+        "description": "Specializes in allergies and immune system disorders."
+    }
+]
