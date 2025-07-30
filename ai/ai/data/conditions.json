@@ -1,0 +1,52 @@
+[
+    {
+        "id": "common_cold",
+        "name": "Common Cold",
+        "description": "A viral infection of the upper respiratory tract, causing runny nose and cough.",
+        "symptoms": ["runny_nose", "cough", "sore_throat", "mild_fever", "headache"],
+        "primary_symptoms": ["runny_nose", "cough"],
+        "specialist": "general_practitioner",
+        "typical_duration": 2,
+        "typical_severity": 3
+    },
+    {
+        "id": "flu",
+        "name": "Influenza (Flu)",
+        "description": "A contagious respiratory illness with fever, aches, and cough.",
+        "symptoms": ["fever", "cough", "sore_throat", "body_ache", "headache", "fatigue", "chills"],
+        "primary_symptoms": ["fever", "body_ache", "fatigue"],
+        "specialist": "general_practitioner",
+        "typical_duration": 3,
+        "typical_severity": 6
+    },
+    {
+        "id": "covid_19",
+        "name": "COVID-19",
+        "description": "An infectious disease caused by SARS-CoV-2, affecting the respiratory system.",
+        "symptoms": ["fever", "cough", "fatigue", "shortness_of_breath", "loss_of_taste", "loss_of_smell", "sore_throat", "headache"],
+        "primary_symptoms": ["fever", "cough", "shortness_of_breath", "loss_of_taste", "loss_of_smell"],
+        "specialist": "infectious_disease",
+        "typical_duration": 3,
+        "typical_severity": 7
+    },
+    {
+        "id": "migraine",
+        "name": "Migraine",
+        "description": "Intense headaches, often with sensitivity to light and nausea.",
+        "symptoms": ["headache", "nausea", "sensitivity_to_light", "sensitivity_to_sound", "visual_disturbances"],
+        "primary_symptoms": ["headache", "visual_disturbances"],
+        "specialist": "neurologist",
+        "typical_duration": 2,
+        "typical_severity": 8
+    },
+    {
+        "id": "allergic_rhinitis",
+        "name": "Allergic Rhinitis",
+        "description": "Allergic response with runny nose and sneezing.",
+        "symptoms": ["runny_nose", "sneezing", "itchy_eyes", "watery_eyes", "nasal_congestion"],
+        "primary_symptoms": ["runny_nose", "itchy_eyes"],
+        "specialist": "allergist",
+        "typical_duration": 4,
+        "typical_severity": 4
+    }
+]
