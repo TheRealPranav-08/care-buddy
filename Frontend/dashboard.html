@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Healthcare Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <nav class="sidebar">
+            <div class="user-info">
+                <img src="assets/icons/user-avatar.svg" alt="User Avatar">
+                <span id="userName">Loading...</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="active"><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="symptom-checker.html">Symptom Checker</a></li>
+                <li><a href="chat.html">Chat</a></li>
+                <li><a href="appointments.html">Appointments</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <h1>Welcome Back, <span id="userFirstName">User</span></h1>
+                <div class="header-actions">
+                    <button class="btn-primary">Book Appointment</button>
+                    <button class="btn-secondary">Start Chat</button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <section class="dashboard-card upcoming-appointments">
+                    <h2>Upcoming Appointments</h2>
+                    <div id="appointmentsList">
+                        <!-- Appointments will be loaded here -->
+                    </div>
+                </section>
+
+                <section class="dashboard-card recent-chats">
+                    <h2>Recent Chats</h2>
+                    <div id="recentChatsList">
+                        <!-- Recent chats will be loaded here -->
+                    </div>
+                </section>
+
+                <section class="dashboard-card quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <a href="symptom-checker.html" class="action-btn">
+                            Check Symptoms
+                        </a>
+                        <a href="appointments.html" class="action-btn">
+                            Schedule Visit
+                        </a>
+                        <a href="chat.html" class="action-btn">
+                            Ask AI Assistant
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
