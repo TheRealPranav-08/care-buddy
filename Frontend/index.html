@@ -12,23 +12,42 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
+
+
 </head>
 <body>
     <!-- Modern Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <nav class="navbar navbar-expand-lg fixed-top smart-navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="assets/images/logo.png" alt="Smart Healthcare Logo" height="40">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="hospital logo.webp" alt="Smart Healthcare Logo" height="40" class="logo-img animate__animated animate__fadeIn">
+                <span class="brand-text ms-2 animate__animated animate__fadeIn">Care Buddy</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#features">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white px-4" href="register.html">Sign Up</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline" href="#features">
+                            <i class="fas fa-list-alt me-1"></i>Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline" href="#about">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline" href="login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white px-4 sign-up-btn" href="register.html">
+                            <i class="fas fa-user-plus me-1"></i>Sign Up
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -48,7 +67,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 animate__animated animate__fadeInRight">
-                        <img src="assets/images/hero-image.png" alt="Healthcare" class="img-fluid">
+                        <img src="hospital.jpg" alt="Healthcare" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -57,8 +76,9 @@
         <!-- Services Section with Hover Effects -->
         <section id="features" class="features py-5 bg-light">
             <div class="container">
-                <h2 class="text-center mb-5">Our Services</h2>
+                <h2 class="text-center mb-5">Our Features</h2>
                 <div class="row g-4">
+                    <!-- AI Symptom Checker -->
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm hover-card">
                             <div class="card-body text-center p-4">
@@ -70,6 +90,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 24/7 Chat Support -->
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm hover-card">
                             <div class="card-body text-center p-4">
@@ -81,14 +103,55 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Smart Appointments -->
                     <div class="col-md-4">
                         <div class="card h-100 border-0 shadow-sm hover-card">
                             <div class="card-body text-center p-4">
                                 <div class="icon-wrapper mb-3">
                                     <i class="fas fa-calendar-check fa-3x text-primary"></i>
                                 </div>
-                                <h3 class="h4 mb-3">Easy Appointments</h3>
+                                <h3 class="h4 mb-3">Smart Appointments</h3>
                                 <p class="text-muted">Schedule appointments with specialists in just a few clicks</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Records -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-card">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-file-medical fa-3x text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Health Records</h3>
+                                <p class="text-muted">Securely upload and manage your medical records and test results</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Services -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-card">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-ambulance fa-3x text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Emergency Support</h3>
+                                <p class="text-muted">Quick access to emergency services with one-click SOS alerts</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Offline Support -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-card">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-wrapper mb-3">
+                                    <i class="fas fa-wifi-slash fa-3x text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Offline Access</h3>
+                                <p class="text-muted">Access critical features and chat support even in low network areas</p>
                             </div>
                         </div>
                     </div>

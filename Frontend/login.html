@@ -4,34 +4,319 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Smart Healthcare Portal</title>
+    <!-- Modern CSS frameworks -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="form.css">
-
+     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+    <!-- Add Three.js for background effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Add Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Add Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
-<body>
-    <div class="auth-container">
-        <form id="loginForm" class="auth-form">
-            <h1>Login</h1>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+<body class="login-page">
+    <!-- Interactive Background -->
+    <div id="particles-js"></div>
+    <div class="background-waves"></div>
+
+    <!-- Back to home button with enhanced animation -->
+    <a href="index.html" class="back-home ripple-effect">
+        <span class="circle">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="button-text">Back to Home</span>
+    </a>
+
+    <div class="auth-container animate__animated animate__fadeIn">
+        <div class="auth-wrapper glass-effect">
+            <!-- Left side - Login Form -->
+            <form id="loginForm" class="auth-form animate__animated animate__slideInLeft">
+                <div class="form-header text-center">
+                    <div class="brand-container">
+                        <div class="logo-wrapper">
+                            <img src="hospital logo.webp" alt="Logo" class="auth-logo pulse-animation">
+                            <div class="symbol-ring">
+                                <i class="fas fa-heartbeat symbol-icon"></i>
+                                <i class="fas fa-stethoscope symbol-icon"></i>
+                                <i class="fas fa-user-md symbol-icon"></i>
+                                <i class="fas fa-pills symbol-icon"></i>
+                                <i class="fas fa-hospital symbol-icon"></i>
+                            </div>
+                        </div>
+                        <h1 class="gradient-text">Welcome Back!</h1>
+                        <p class="text-muted typewriter">Please login to your account</p>
+                    </div>
+                </div>
+
+                <div class="form-group floating-input focus-animation">
+                    <input type="email" id="email" name="email" required placeholder=" ">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <div class="input-underline"></div>
+                </div>
+
+                <!-- Add after email input field -->
+                <div class="form-group">
+                    <label class="input-label">Gender</label>
+                    <div class="gender-selector">
+                        <div class="gender-option">
+                            <input type="radio" id="male" name="gender" value="male" required>
+                            <label for="male" class="gender-label">
+                                <i class="fas fa-mars"></i>
+                                <span>Male</span>
+                            </label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female" class="gender-label">
+                                <i class="fas fa-venus"></i>
+                                <span>Female</span>
+                            </label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other" class="gender-label">
+                                <i class="fas fa-transgender"></i>
+                                <span>Other</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group floating-input">
+                    <input type="password" id="password" name="password" required placeholder=" ">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <div class="input-underline"></div>
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <div class="form-options">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="remember">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary btn-login">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <!-- Enhanced social login section -->
+                <div class="social-login">
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn google hover-float">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn facebook hover-float">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="social-btn apple hover-float">
+                            <i class="fab fa-apple"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Enhanced redirect link -->
+                <p class="auth-redirect">
+                    Don't have an account? 
+                    <a href="register.html" class="gradient-link">Sign up</a>
+                </p>
+            </form>
+
+            <!-- Right side - Interactive Decoration -->
+            <div class="auth-decoration animate__animated animate__slideInRight">
+                <div class="decoration-content">
+                    <h2 class="gradient-text floating">Your Health Journey Starts Here</h2>
+                    <p class="typing-text">Access your healthcare dashboard and connect with professionals</p>
+                    <div class="floating-elements">
+                        <i class="fas fa-heartbeat floating-icon"></i>
+                        <i class="fas fa-stethoscope floating-icon"></i>
+                        <i class="fas fa-user-md floating-icon"></i>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-links">
-                <a href="#" class="forgot-password">Forgot Password?</a>
-            </div>
-            <button type="submit" class="btn-primary">Login</button>
-            <p class="auth-redirect">
-                Don't have an account? <a href="register.html">Sign up</a>
-            </p>
-        </form>
+        </div>
     </div>
-    <script src="js/auth.js"></script>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script>
+        // Password visibility toggle
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const toggleBtn = document.querySelector('.password-toggle i');
+            if (password.type === 'password') {
+                password.type = 'text';
+                toggleBtn.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                password.type = 'password';
+                toggleBtn.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Form validation and submission
+        const form = document.getElementById('loginForm');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        let genderError = null;
+
+        // Validation functions
+        const showError = (input, message) => {
+            const formGroup = input.parentElement;
+            formGroup.classList.remove('success');
+            formGroup.classList.add('error');
+            const error = formGroup.querySelector('.error-message') || document.createElement('div');
+            error.className = 'error-message';
+            error.innerHTML = `<i class="fas fa-exclamation-circle"></i>${message}`;
+            if (!formGroup.querySelector('.error-message')) {
+                formGroup.appendChild(error);
+            }
+        };
+
+        const showSuccess = (input) => {
+            const formGroup = input.parentElement;
+            formGroup.classList.remove('error');
+            formGroup.classList.add('success');
+            const error = formGroup.querySelector('.error-message');
+            if (error) {
+                error.remove();
+            }
+        };
+
+        const clearGenderError = () => {
+            if (genderError) {
+                genderError.remove();
+                genderError = null;
+            }
+        };
+
+        // Real-time validation
+        email.addEventListener('input', () => {
+            if (!email.value.trim()) {
+                showError(email, 'Email is required');
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+            } else {
+                showSuccess(email);
+            }
+        });
+
+        password.addEventListener('input', () => {
+            if (!password.value.trim()) {
+                showError(password, 'Password is required');
+            } else if (!isValidPassword(password.value)) {
+                showError(password, 'Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character');
+            } else {
+                showSuccess(password);
+            }
+        });
+
+        // Gender selection validation
+        document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.addEventListener('change', clearGenderError);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Clear previous errors
+            clearGenderError();
+
+            // Validate email
+            if (!email.value.trim()) {
+                showError(email, 'Email is required');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                showSuccess(email);
+            }
+
+            // Validate password
+            if (!password.value.trim()) {
+                showError(password, 'Password is required');
+                isValid = false;
+            } else if (!isValidPassword(password.value)) {
+                showError(password, 'Invalid password format');
+                isValid = false;
+            } else {
+                showSuccess(password);
+            }
+
+            // Validate gender selection
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                const genderGroup = document.querySelector('.gender-selector').parentElement;
+                genderError = document.createElement('div');
+                genderError.className = 'error-message';
+                genderError.innerHTML = '<i class="fas fa-exclamation-circle"></i>Please select your gender';
+                genderGroup.appendChild(genderError);
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.querySelector('.loading-overlay').style.display = 'flex';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    const loginSuccess = true;
+                    
+                    if (loginSuccess) {
+                        // Show success animation and redirect
+                        const overlay = document.querySelector('.loading-overlay');
+                        overlay.innerHTML = `
+                            <div class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Login Successful!</p>
+                            </div>
+                        `;
+                        
+                        gsap.to('.success-message', {
+                            scale: 1,
+                            duration: 0.5,
+                            ease: "elastic.out(1, 0.5)",
+                            onComplete: () => {
+                                // Store user data in localStorage
+                                localStorage.setItem('userEmail', email.value);
+                                localStorage.setItem('userGender', gender.value);
+                                // Redirect to chat interface
+                                window.location.href = 'chat.html';
+                            }
+                        });
+                    } else {
+                        document.querySelector('.loading-overlay').style.display = 'none';
+                        showError(email, 'Invalid credentials');
+                    }
+                }, 1500);
+            }
+        });
+    </script>
 </body>
 </html>
