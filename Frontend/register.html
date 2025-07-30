@@ -4,16 +4,454 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Smart Healthcare Portal</title>
-    <!-- Modern CSS frameworks and fonts -->
+    
+    <!-- Essential CSS frameworks and fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/responsive.css">
-     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="form.css">
+    
+    <!-- Remove or comment out redundant CSS files -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <!-- <link rel="stylesheet" href="css/form.css"> -->
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" href="form.css"> -->
+
+    <!-- Keep all styles in one place -->
+    <style>
+        :root {
+            --primary: #4C9AFF;
+            --primary-dark: #2684FF;
+            --secondary: #7C5CFF;
+            --success: #36B37E;
+            --danger: #FF5630;
+            --warning: #FFAB00;
+            --dark: #172B4D;
+            --light: #F4F5F7;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --shadow-sm: 0 2px 4px rgba(9, 30, 66, 0.08);
+            --shadow-md: 0 4px 8px rgba(9, 30, 66, 0.12);
+            --shadow-lg: 0 8px 16px rgba(9, 30, 66, 0.16);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Base Styles */
+        body.register-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFF 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .back-home:hover {
+            transform: translateX(-4px);
+            color: var(--primary);
+        }
+
+        /* Enhanced Form Container */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(238, 242, 255, 0.9) 0%, rgba(248, 250, 255, 0.9) 100%),
+                        url('path-to-your-background-pattern.svg');
+            background-attachment: fixed;
+        }
+
+        /* Glass Morphism Enhancement */
+        .auth-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Form Styles */
+        .auth-form {
+            padding: 3rem;
+            background: var(--white);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Input Field Enhancements */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 50px;
+            padding: 0.75rem 1rem 0.75rem 2.5rem; /* Adjusted padding for icon */
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            color: var(--dark);
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 2.5rem; /* Align with input text after icon */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            background: var(--white);
+            padding: 0 0.25rem;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Enhanced Gender Selection */
+        .gender-select {
+            margin-bottom: 1.5rem;
+        }
+
+        .gender-select label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .gender-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .gender-btn {
+            height: 48px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+
+        .gender-btn i {
+            font-size: 1.1rem;
+            margin-right: 0.5rem;
+        }
+
+        .gender-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .gender-btn:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Progress Bar */
+        .form-steps-progress {
+            margin: 2.5rem 0;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--light);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.4s ease;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.2);
+        }
+
+        .steps-indicator {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .step {
+            color: var(--dark);
+            font-size: 0.875rem;
+            position: relative;
+            padding-top: 1rem;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .step.active::before {
+            background: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 154, 255, 0.2);
+        }
+
+        /* Gender Selection */
+        .gender-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gender-btn {
+            flex: 1;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gender-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .gender-btn > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gender-btn.active {
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .gender-btn.active::before {
+            opacity: 1;
+        }
+
+        /* Form Navigation */
+        .form-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 0.875rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+        }
+
+        .btn-primary:hover,
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Decorative Right Side */
+        .auth-decoration {
+            background: var(--gradient-primary);
+            padding: 3rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-decoration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48.97 0l3.657 3.657-1.414 1.414L46.143 0h2.828zM11.03 0L7.372 3.657 8.787 5.07 13.857 0H11.03zm32.284 0L49.8 6.485 48.384 7.9l-7.9-7.9h2.83zM16.686 0L10.2 6.485 11.616 7.9l7.9-7.9h-2.83zM22.343 0L13.858 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.515 8.485 17.343 10.657 28 0h-2.83zM32.657 0L26.172 6.485 24.757 7.9l7.9-7.9h2.83zM22.343 0L13.858 8.485 15.272 9.9l7.9-7.9h-.83zm5.657 0L19.515 8.485 17.343 10.657 28 0h-2.83zM32.657 0L26.172 6.485 24.757 7.9l7.9-7.9h2.83z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991.98px) {
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-decoration {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-form {
+                padding: 2rem;
+            }
+
+            .gender-options {
+                flex-direction: column;
+            }
+
+            .back-home {
+                top: 1rem;
+                left: 1rem;
+            }
+        }
+
+        /* Error State Enhancements */
+        .form-group.error input {
+            border-color: var(--danger);
+            background: rgba(255, 99, 71, 0.05);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Loading State Enhancement */
+        .loading-overlay {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .success-message {
+            animation: scaleIn 0.5s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </head>
 <body class="register-page">
     <!-- Back to home button -->
@@ -45,19 +483,21 @@
                 <!-- Step 1: Personal Information -->
                 <div class="form-step" id="step1">
                     <div class="form-group floating-input">
+                        <i class="fas fa-user"></i>
                         <input type="text" id="fullName" name="fullName" required placeholder=" ">
-                        <label for="fullName">
-                            <i class="fas fa-user"></i> Full Name
-                        </label>
-                        <div class="input-underline"></div>
+                        <label for="fullName">Full Name</label>
                     </div>
 
                     <div class="form-group floating-input">
-                        <input type="date" id="dob" name="dob" required placeholder=" ">
-                        <label for="dob">
-                            <i class="fas fa-calendar"></i> Date of Birth
-                        </label>
-                        <div class="input-underline"></div>
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" id="dob" name="dob" required>
+                        <label for="dob">Date of Birth</label>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder=" ">
+                        <label for="email">Email Address</label>
                     </div>
 
                     <div class="form-group">
@@ -65,13 +505,16 @@
                             <label>Gender</label>
                             <div class="gender-options">
                                 <button type="button" class="gender-btn active">
-                                    <i class="fas fa-mars"></i> Male
+                                    <i class="fas fa-mars"></i>
+                                    Male
                                 </button>
                                 <button type="button" class="gender-btn">
-                                    <i class="fas fa-venus"></i> Female
+                                    <i class="fas fa-venus"></i>
+                                    Female
                                 </button>
                                 <button type="button" class="gender-btn">
-                                    <i class="fas fa-transgender"></i> Other
+                                    <i class="fas fa-transgender"></i>
+                                    Other
                                 </button>
                             </div>
                         </div>
@@ -80,14 +523,6 @@
 
                 <!-- Step 2: Contact Information -->
                 <div class="form-step hidden" id="step2">
-                    <div class="form-group floating-input">
-                        <input type="email" id="email" name="email" required placeholder=" ">
-                        <label for="email">
-                            <i class="fas fa-envelope"></i> Email Address
-                        </label>
-                        <div class="input-underline"></div>
-                    </div>
-
                     <div class="form-group floating-input">
                         <input type="tel" id="phone" name="phone" required placeholder=" ">
                         <label for="phone">
@@ -108,6 +543,7 @@
                 <!-- Step 3: Security Information -->
                 <div class="form-step hidden" id="step3">
                     <div class="form-group floating-input">
+                        <i class="fas fa-lock"></i>
                         <input type="password" id="password" name="password" required placeholder=" ">
                         <label for="password">
                             <i class="fas fa-lock"></i> Password
@@ -119,6 +555,7 @@
                     </div>
 
                     <div class="form-group floating-input">
+                        <i class="fas fa-lock"></i>
                         <input type="password" id="confirmPassword" name="confirmPassword" required placeholder=" ">
                         <label for="confirmPassword">
                             <i class="fas fa-lock"></i> Confirm Password
