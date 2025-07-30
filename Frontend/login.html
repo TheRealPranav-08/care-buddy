@@ -264,6 +264,49 @@
             margin-bottom: 1rem;
         }
 
+        /* Back to home button styles */
+        .back-home {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .back-home .circle {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .back-home .button-text {
+            font-weight: 500;
+        }
+
+        .back-home:hover {
+            transform: translateX(-4px);
+            color: var(--primary);
+        }
+
+        .back-home:hover .circle {
+            background: var(--primary);
+            color: var(--white);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .auth-wrapper {
@@ -290,7 +333,7 @@
     <div class="background-waves"></div>
 
     <!-- Back to home button with enhanced animation -->
-    <a href="index.html" class="back-home ripple-effect">
+    <a href="index.html" class="back-home">
         <span class="circle">
             <i class="fas fa-arrow-left"></i>
         </span>
@@ -440,6 +483,23 @@
                 toggleBtn.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
+
+        // Back button functionality
+        document.querySelector('.back-home').addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            
+            // Add fade out animation
+            document.body.style.opacity = 0;
+            
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300);
+        });
+
+        // Ensure full opacity on page load
+        document.body.style.opacity = 1;
+        document.body.style.transition = 'opacity 0.3s ease';
 
         // Form validation and submission
         const form = document.getElementById('loginForm');

@@ -115,14 +115,14 @@
 
         /* Input Field Enhancements */
         .form-group {
-            margin-bottom: 1.5rem;
             position: relative;
+            margin-bottom: 1.5rem;
         }
 
         .form-group input {
             width: 100%;
             height: 50px;
-            padding: 0.75rem 1rem 0.75rem 2.5rem; /* Adjusted padding for icon */
+            padding: 1rem 1rem 0.5rem 2.5rem;
             border: 1.5px solid var(--border);
             border-radius: var(--radius);
             font-size: 1rem;
@@ -131,28 +131,36 @@
             transition: var(--transition);
         }
 
-        .form-group label {
-            position: absolute;
-            left: 2.5rem; /* Align with input text after icon */
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            pointer-events: none;
-            transition: var(--transition);
-            font-size: 0.95rem;
-            background: var(--white);
-            padding: 0 0.25rem;
+        .form-group input::placeholder {
+            color: transparent; /* Hide the placeholder */
         }
 
-        .form-group i {
+        .form-group label {
             position: absolute;
-            left: 1rem;
+            left: 2.5rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
-            font-size: 1rem;
             pointer-events: none;
-            z-index: 1;
+            transition: all 0.2s ease-out;
+            background: var(--white);
+            padding: 0 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        /* Label animation when input is focused or has value */
+        .form-group input:focus ~ label,
+        .form-group input:not(:placeholder-shown) ~ label {
+            top: 0;
+            transform: translateY(-50%) scale(0.85);
+            color: var(--primary);
+        }
+
+        /* Input focus styles */
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(76, 154, 255, 0.1);
+            outline: none;
         }
 
         /* Enhanced Gender Selection */
@@ -482,13 +490,13 @@
 
                 <!-- Step 1: Personal Information -->
                 <div class="form-step" id="step1">
-                    <div class="form-group floating-input">
+                    <div class="form-group">
                         <i class="fas fa-user"></i>
                         <input type="text" id="fullName" name="fullName" required placeholder=" ">
                         <label for="fullName">Full Name</label>
                     </div>
 
-                    <div class="form-group floating-input">
+                    <div class="form-group">
                         <i class="fas fa-calendar"></i>
                         <input type="date" id="dob" name="dob" required>
                         <label for="dob">Date of Birth</label>
@@ -496,82 +504,62 @@
 
                     <div class="form-group">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" placeholder=" ">
+                        <input type="email" id="email" name="email" required placeholder=" ">
                         <label for="email">Email Address</label>
                     </div>
 
-                    <div class="form-group">
-                        <div class="gender-select">
-                            <label>Gender</label>
-                            <div class="gender-options">
-                                <button type="button" class="gender-btn active">
-                                    <i class="fas fa-mars"></i>
-                                    Male
-                                </button>
-                                <button type="button" class="gender-btn">
-                                    <i class="fas fa-venus"></i>
-                                    Female
-                                </button>
-                                <button type="button" class="gender-btn">
-                                    <i class="fas fa-transgender"></i>
-                                    Other
-                                </button>
-                            </div>
+                    <div class="gender-select">
+                        <label>Gender</label>
+                        <div class="gender-options">
+                            <button type="button" class="gender-btn active">
+                                <i class="fas fa-mars"></i>
+                                Male
+                            </button>
+                            <button type="button" class="gender-btn">
+                                <i class="fas fa-venus"></i>
+                                Female
+                            </button>
+                            <button type="button" class="gender-btn">
+                                <i class="fas fa-transgender"></i>
+                                Other
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 2: Contact Information -->
                 <div class="form-step hidden" id="step2">
-                    <div class="form-group floating-input">
+                    <div class="form-group">
+                        <i class="fas fa-phone"></i>
                         <input type="tel" id="phone" name="phone" required placeholder=" ">
-                        <label for="phone">
-                            <i class="fas fa-phone"></i> Phone Number
-                        </label>
-                        <div class="input-underline"></div>
+                        <label for="phone">Phone Number</label>
                     </div>
 
-                    <div class="form-group floating-input">
+                    <div class="form-group">
+                        <i class="fas fa-location-dot"></i>
                         <input type="text" id="address" name="address" required placeholder=" ">
-                        <label for="address">
-                            <i class="fas fa-location-dot"></i> Address
-                        </label>
-                        <div class="input-underline"></div>
+                        <label for="address">Address</label>
                     </div>
                 </div>
 
                 <!-- Step 3: Security Information -->
                 <div class="form-step hidden" id="step3">
-                    <div class="form-group floating-input">
+                    <div class="form-group">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="password" name="password" required placeholder=" ">
-                        <label for="password">
-                            <i class="fas fa-lock"></i> Password
-                        </label>
-                        <div class="input-underline"></div>
+                        <label for="password">Password</label>
                         <button type="button" class="password-toggle" onclick="togglePassword('password')">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
 
-                    <div class="form-group floating-input">
+                    <div class="form-group">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="confirmPassword" name="confirmPassword" required placeholder=" ">
-                        <label for="confirmPassword">
-                            <i class="fas fa-lock"></i> Confirm Password
-                        </label>
-                        <div class="input-underline"></div>
+                        <label for="confirmPassword">Confirm Password</label>
                         <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
                             <i class="fas fa-eye"></i>
                         </button>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" id="terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#">Terms & Conditions</a>
-                        </label>
                     </div>
                 </div>
 

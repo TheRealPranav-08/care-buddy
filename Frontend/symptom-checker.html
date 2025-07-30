@@ -4,11 +4,319 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Symptom Checker - Smart Healthcare Portal</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="form.css">
+    
+    <!-- Add required CDN links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+
+    <style>
+        /* Root variables - using modern color scheme */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3046eb;
+            --secondary: #7209b7;
+            --success: #2ec4b6;
+            --danger: #e63946;
+            --warning: #ff9f1c;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --border: #e9ecef;
+            
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+            --gradient-secondary: linear-gradient(135deg, #2ec4b6 0%, #3046eb 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Modern Reset & Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Adjust the dashboard layout width */
+        .dashboard-layout {
+            display: block;
+        }
+
+        /* Adjust the sidebar width */
+        .sidebar {
+            display: none;
+        }
+
+        /* Symptom Checker Container */
+        .symptom-checker {
+            padding: 2rem;
+            margin-left: 0;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Enhanced Header */
+        header {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            margin: 2rem auto;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        /* Glass Morphism Form */
+        .symptom-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* Enhanced Input Styling */
+        .form-group input[type="text"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            outline: none;
+        }
+
+        /* Custom Select Styling */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Modern Range Input */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 85%;
+            display: inline-block;
+            vertical-align: middle;
+            height: 8px;
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        #severityValue {
+            width: 60px;
+            height: 60px;
+            margin-left: 20px;
+            font-size: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 600;
+            margin-left: 1rem;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+        }
+
+        /* Enhanced Submit Button */
+        .btn-primary {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: relative;
+            color: transparent !important;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .symptom-form {
+                max-width: 900px;
+                padding: 2.5rem 3rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .symptom-checker {
+                margin-left: 0;
+                width: 100%;
+                padding: 2rem;
+            }
+
+            .symptom-form {
+                max-width: 800px;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .symptom-form {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            .form-group label {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-layout">
